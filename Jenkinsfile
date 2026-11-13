@@ -7,14 +7,16 @@ pipeline {
     }
     stages {
         stage('Checkout Code') {
-            steps { checkout scm }
+            steps {
+                checkout scm
+            }
         }
         
         stage('Execute Tests') {
             agent {
                 docker {
-                    image 'node:alpine';
-                    args '-u root:root';
+                    image 'node:alpine'
+                    args '-u root:root'
                     reuseNode true 
                 }
             }
