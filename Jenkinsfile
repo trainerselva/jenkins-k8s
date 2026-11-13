@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = 'yourdockerhub/node-app'
+        DOCKER_IMAGE = 'trainerselva/jenkins-k8s'
         // Replace with the Public IP of your K8s Master EC2 instance
-        KUBE_API = 'https://<MASTER_PUBLIC_IP>:6443' 
+        KUBE_API = 'https://98.87.5.160:6443' 
     }
     stages {
         stage('Checkout Code') {
@@ -12,7 +12,11 @@ pipeline {
         
         stage('Execute Tests') {
             agent {
-                docker { image 'node:18-alpine'; args '-u root:root'; reuseNode true }
+                docker {
+                    image 'node:alpine';
+                    args '-u root:root';
+                    reuseNode true 
+                }
             }
             steps {
                 sh 'npm ci'
